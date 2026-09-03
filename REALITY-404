@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#03050a">
+
+<title>REALITY 404 — BLACK NODE</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#02040a;
+    --panel:rgba(9,13,23,.68);
+    --line:rgba(255,255,255,.09);
+    --text:#f4f7ff;
+    --muted:#7f8aa3;
+    --cyan:#00eaff;
+    --violet:#8b5cf6;
+    --red:#ff3158;
+    --green:#37f59a;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,sans-serif;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-5;
+    background:
+        radial-gradient(circle at 15% 20%,rgba(0,234,255,.10),transparent 25%),
+        radial-gradient(circle at 85% 75%,rgba(139,92,246,.11),transparent 28%);
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:100;
+    opacity:.025;
+    background:repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        #fff 4px
+    );
+}
+
+canvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-4;
+}
+
+/* LOADER */
+
+#loader{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    background:#010207;
+    transition:1s ease;
+}
+
+.loader-title{
+    font-family:Orbitron;
+    font-size:clamp(25px,7vw,65px);
+    font-weight:900;
+    letter-spacing:7px;
+}
+
+.loader-title span{
+    color:var(--cyan);
+}
+
+.loader-status{
+    margin-top:18px;
+    color:var(--muted);
+    font-family:monospace;
+    font-size:11px;
+    letter-spacing:2px;
+}
+
+.loader-line{
+    width:min(380px,75vw);
+    height:3px;
+    margin-top:25px;
+    background:#111622;
+    overflow:hidden;
+}
+
+.loader-fill{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,var(--cyan),var(--violet));
+    animation:loading 2.7s forwards;
+}
+
+@keyframes loading{
+    to{width:100%}
+}
+
+/* HEADER */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:22px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:50;
+    border-bottom:1px solid rgba(255,255,255,.03);
+    backdrop-filter:blur(12px);
+}
+
+.logo{
+    font-family:Orbitron;
+    font-weight:900;
+    letter-spacing:2px;
+    cursor:pointer;
+}
+
+.logo span{
+    color:var(--cyan);
+}
+
+.nav-status{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:var(--muted);
+    font-size:10px;
+    letter-spacing:1.5px;
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 14px var(--green);
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:130px 6% 80px;
+    text-align:center;
+    position:relative;
+}
+
+.hero-content{
+    max-width:1000px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid rgba(0,234,255,.2);
+    background:rgba(0,234,255,.035);
+    padding:9px 15px;
+    border-radius:100px;
+    color:var(--cyan);
+    font-family:monospace;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:30px;
+}
+
+.badge i{
+    width:6px;
+    height:6px;
+    background:var(--cyan);
+    border-radius:50%;
+    box-shadow:0 0 10px var(--cyan);
+}
+
+.hero h1{
+    font-family:Orbitron;
+    font-size:clamp(43px,9vw,105px);
+    line-height:.94;
+    font-weight:900;
+    letter-spacing:-4px;
+    position:relative;
+}
+
+.hero h1 span{
+    color:transparent;
+    -webkit-text-stroke:1px rgba(255,255,255,.55);
+}
+
+.hero h1::after{
+    content:"REALITY NOT FOUND";
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    color:var(--cyan);
+    opacity:.18;
+    transform:translate(3px,2px);
+    animation:distort 2.5s infinite;
+}
+
+@keyframes distort{
+    0%,90%,100%{clip-path:inset(0)}
+    92%{clip-path:inset(20% 0 50% 0)}
+    95%{clip-path:inset(60% 0 10% 0)}
+}
+
+.hero-text{
+    max-width:650px;
+    margin:28px auto 35px;
+    color:var(--muted);
+    line-height:1.9;
+    font-size:14px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.btn{
+    border:1px solid transparent;
+    padding:15px 24px;
+    border-radius:9px;
+    font-family:Orbitron;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.primary{
+    background:var(--cyan);
+    color:#020409;
+    box-shadow:0 0 30px rgba(0,234,255,.14);
+}
+
+.primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 45px rgba(0,234,255,.35);
+}
+
+.secondary{
+    background:rgba(255,255,255,.035);
+    color:white;
+    border-color:var(--line);
+}
+
+.secondary:hover{
+    border-color:rgba(0,234,255,.35);
+    transform:translateY(-3px);
+}
+
+/* SECTION */
+
+section{
+    padding:100px 6%;
+}
+
+.section-head{
+    max-width:1100px;
+    margin:0 auto 35px;
+}
+
+.section-label{
+    color:var(--cyan);
+    font-family:monospace;
+    font-size:10px;
+    letter-spacing:3px;
+    margin-bottom:10px;
+}
+
+.section-title{
+    font-family:Orbitron;
+    font-size:clamp(25px,4vw,45px);
+}
+
+.section-title span{
+    color:var(--cyan);
+}
+
+.section-description{
+    color:var(--muted);
+    margin-top:10px;
+    font-size:13px;
+}
+
+/* MONITOR */
+
+.monitor{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:18px;
+}
+
+.panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:20px;
+    backdrop-filter:blur(20px);
+    box-shadow:0 25px 80px rgba(0,0,0,.25);
+}
+
+.panel-head{
+    padding:15px 20px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-family:monospace;
+    font-size:10px;
+}
+
+.panel-body{
+    padding:25px;
+}
+
+.big-number{
+    font-family:Orbitron;
+    font-size:48px;
+    color:var(--cyan);
+    font-weight:800;
+}
+
+.meter{
+    height:5px;
+    background:#121722;
+    border-radius:20px;
+    overflow:hidden;
+    margin:15px 0 25px;
+}
+
+.meter span{
+    display:block;
+    height:100%;
+    width:73%;
+    background:linear-gradient(90deg,var(--cyan),var(--violet));
+    animation:pulseMeter 3s infinite alternate;
+}
+
+@keyframes pulseMeter{
+    to{width:81%}
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.stat{
+    padding:17px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:rgba(255,255,255,.025);
+}
+
+.stat small{
+    color:var(--muted);
+    display:block;
+    font-size:10px;
+    margin-bottom:7px;
+}
+
+.stat strong{
+    font-family:Orbitron;
+    font-size:16px;
+}
+
+/* TERMINAL */
+
+.terminal{
+    max-width:1100px;
+    margin:auto;
+    overflow:hidden;
+}
+
+.terminal-top{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:14px 18px;
+    border-bottom:1px solid var(--line);
+}
+
+.terminal-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#333;
+}
+
+.terminal-name{
+    margin-left:10px;
+    font-family:monospace;
+    font-size:10px;
+    color:var(--muted);
+}
+
+.terminal-body{
+    padding:25px;
+    min-height:280px;
+    font-family:monospace;
+    font-size:12px;
+    line-height:2;
+}
+
+.green{
+    color:var(--green);
+}
+
+.cyan{
+    color:var(--cyan);
+}
+
+.dim{
+    color:#687188;
+}
+
+.cursor{
+    display:inline-block;
+    width:7px;
+    height:15px;
+    background:var(--cyan);
+    vertical-align:middle;
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+    50%{opacity:0}
+}
+
+/* FILES */
+
+.files{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.file{
+    min-height:215px;
+    padding:25px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:var(--panel);
+    backdrop-filter:blur(15px);
+    cursor:pointer;
+    transition:.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+.file:hover{
+    transform:translateY(-8px);
+    border-color:rgba(0,234,255,.35);
+    box-shadow:0 20px 60px rgba(0,234,255,.07);
+}
+
+.file-number{
+    color:var(--cyan);
+    font-family:monospace;
+    font-size:10px;
+}
+
+.file-icon{
+    font-size:35px;
+    margin:25px 0 18px;
+}
+
+.file h3{
+    font-family:Orbitron;
+    font-size:15px;
+    margin-bottom:10px;
+}
+
+.file p{
+    color:var(--muted);
+    line-height:1.7;
+    font-size:12px;
+}
+
+.file-lock{
+    position:absolute;
+    top:18px;
+    right:18px;
+    color:var(--red);
+    font-size:11px;
+}
+
+/* PUZZLE */
+
+.puzzle{
+    max-width:800px;
+    margin:auto;
+    text-align:center;
+    padding:45px 25px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:var(--panel);
+    backdrop-filter:blur(20px);
+}
+
+.puzzle-code{
+    font-family:Orbitron;
+    color:var(--cyan);
+    font-size:clamp(25px,5vw,45px);
+    letter-spacing:8px;
+    margin:25px 0;
+}
+
+.input{
+    width:min(350px,90%);
+    padding:14px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    outline:none;
+    background:#050810;
+    color:white;
+    text-align:center;
+    font-family:monospace;
+}
+
+.input:focus{
+    border-color:var(--cyan);
+    box-shadow:0 0 20px rgba(0,234,255,.08);
+}
+
+.result{
+    min-height:25px;
+    margin-top:18px;
+    font-family:monospace;
+    font-size:11px;
+}
+
+/* FOOTER */
+
+footer{
+    padding:50px 6%;
+    text-align:center;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font-size:11px;
+    line-height:2;
+}
+
+footer strong{
+    color:var(--cyan);
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:500;
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(14px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    width:min(650px,100%);
+    padding:35px;
+    background:#070a12;
+    border:1px solid rgba(0,234,255,.2);
+    border-radius:20px;
+    position:relative;
+    box-shadow:0 30px 100px rgba(0,0,0,.6);
+}
+
+.modal-box h2{
+    font-family:Orbitron;
+    margin-bottom:18px;
+}
+
+.modal-box p{
+    color:var(--muted);
+    line-height:1.9;
+    font-size:13px;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    cursor:pointer;
+    color:var(--muted);
+    font-size:25px;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    header{
+        padding:18px 5%;
+    }
+
+    .nav-status{
+        display:none;
+    }
+
+    section{
+        padding:75px 5%;
+    }
+
+    .monitor{
+        grid-template-columns:1fr;
+    }
+
+    .files{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:430px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .hero-text{
+        font-size:13px;
+    }
+
+    .terminal-body{
+        font-size:10px;
+        padding:18px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="space"></canvas>
+
+<!-- LOADER -->
+<div id="loader">
+    <div class="loader-title">R<span>404</span></div>
+    <div class="loader-status">INITIALIZING BLACK NODE...</div>
+
+    <div class="loader-line">
+        <div class="loader-fill"></div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header>
+
+    <div class="logo" onclick="secretLogo()">
+        BLACK<span>NODE</span>
+    </div>
+
+    <div class="nav-status">
+        <span class="status-dot"></span>
+        RECOVERY NETWORK ONLINE
+    </div>
+
+</header>
+
+
+<!-- HERO -->
+<section class="hero">
+
+<div class="hero-content">
+
+    <div class="badge">
+        <i></i>
+        SYSTEM ID: R404-BN-09
+    </div>
+
+    <h1>
+        REALITY<br>
+        <span>NOT FOUND</span>
+    </h1>
+
+    <p class="hero-text">
+        A critical anomaly has corrupted the reality database.
+        Seven fragments survived the collapse.
+        The Black Node is the only remaining recovery system.
+    </p>
+
+    <div class="buttons">
+
+        <button class="btn primary"
+        onclick="scrollToId('monitor')">
+            ENTER BLACK NODE
+        </button>
+
+        <button class="btn secondary"
+        onclick="scrollToId('fragments')">
+            EXPLORE FRAGMENTS
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- SYSTEM MONITOR -->
+<section id="monitor">
+
+<div class="section-head">
+    <div class="section-label">// SYSTEM MONITOR</div>
+
+    <h2 class="section-title">
+        BLACK NODE <span>CORE</span>
+    </h2>
+
+    <p class="section-description">
+        Current recovery status from the surviving network.
+    </p>
+</div>
+
+
+<div class="monitor">
+
+<div class="panel">
+
+    <div class="panel-head">
+        <span>RECOVERY CORE</span>
+        <span class="green">ONLINE</span>
+    </div>
+
+    <div class="panel-body">
+
+        <div class="big-number" id="percent">
+            73%
+        </div>
+
+        <div class="meter">
+            <span></span>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                <small>FRAGMENTS</small>
+                <strong>07 / 09</strong>
+            </div>
+
+            <div class="stat">
+                <small>STABILITY</small>
+                <strong>89.4%</strong>
+            </div>
+
+            <div class="stat">
+                <small>UNKNOWN SIGNAL</small>
+                <strong>ACTIVE</strong>
+            </div>
+
+            <div class="stat">
+                <small>ORIGIN</small>
+                <strong>HIDDEN</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="panel">
+
+    <div class="panel-head">
+        <span>LIVE DIAGNOSTICS</span>
+        <span>v2.0</span>
+    </div>
+
+    <div class="panel-body">
+
+        <p class="dim">NETWORK</p>
+        <p class="green">CONNECTED</p>
+
+        <br>
+
+        <p class="dim">REALITY ENGINE</p>
+        <p class="cyan">UNSTABLE</p>
+
+        <br>
+
+        <p class="dim">EXTERNAL SIGNAL</p>
+        <p style="color:var(--red)">DETECTED</p>
+
+        <br>
+
+        <p class="dim">LAST EVENT</p>
+        <p>03:17:09</p>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TERMINAL -->
+<section>
+
+<div class="section-head">
+
+    <div class="section-label">// RECOVERY TERMINAL</div>
+
+    <h2 class="section-title">
+        SYSTEM <span>CONSOLE</span>
+    </h2>
+
+</div>
+
+
+<div class="panel terminal">
+
+<div class="terminal-top">
+
+    <div class="terminal-dot"></div>
+    <div class="terminal-dot"></div>
+    <div class="terminal-dot"></div>
+
+    <div class="terminal-name">
+        blacknode://root/recovery
+    </div>
+
+</div>
+
+
+<div class="terminal-body">
+
+<div>
+<span class="cyan">root@blacknode</span>:~$
+<span id="command"></span><span class="cursor"></span>
+</div>
+
+<div id="terminalResult" class="dim"></div>
+
+<br>
+
+<div class="dim">
+> SYSTEM MESSAGE: DO NOT TRUST THE CLOCK.
+</div>
+
+<div class="dim">
+> SYSTEM MESSAGE: SIGNAL 07 IS NOT EMPTY.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FRAGMENTS -->
+<section id="fragments">
+
+<div class="section-head">
+
+    <div class="section-label">// CLASSIFIED DATA</div>
+
+    <h2 class="section-title">
+        RECOVERED <span>FRAGMENTS</span>
+    </h2>
+
+    <p class="section-description">
+        Some files contain pieces of the original reality.
+    </p>
+
+</div>
+
+
+<div class="files">
+
+<div class="file" onclick="openFile('memory')">
+
+    <div class="file-number">FRAGMENT_01</div>
+
+    <div class="file-icon">◈</div>
+
+    <h3>MEMORY CORE</h3>
+
+    <p>
+        A damaged memory from before the collapse.
+        Timestamp partially recovered.
+    </p>
+
+</div>
+
+
+<div class="file" onclick="openFile('signal')">
+
+    <div class="file-number">FRAGMENT_07</div>
+
+    <div class="file-icon">⌁</div>
+
+    <h3>UNKNOWN SIGNAL</h3>
+
+    <p>
+        A transmission originating outside
+        the known reality boundary.
+    </p>
+
+</div>
+
+
+<div class="file" onclick="openFile('origin')">
+
+    <div class="file-number">FRAGMENT_09</div>
+
+    <div class="file-icon">◇</div>
+
+    <div class="file-lock">ENCRYPTED</div>
+
+    <h3>ORIGIN FILE</h3>
+
+    <p>
+        The oldest recovered file.
+        Its contents require a recovery key.
+    </p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PUZZLE -->
+<section>
+
+<div class="puzzle">
+
+    <div class="section-label">// ENCRYPTED NODE</div>
+
+    <h2 class="section-title">
+        RECOVERY <span>SEQUENCE</span>
+    </h2>
+
+    <p class="section-description">
+        Find the hidden key somewhere inside the system.
+    </p>
+
+    <div class="puzzle-code">
+        _ _ _ _ _ _ _
+    </div>
+
+    <input
+        id="key"
+        class="input"
+        maxlength="20"
+        placeholder="ENTER KEY"
+        autocomplete="off"
+    >
+
+    <br><br>
+
+    <button class="btn primary" onclick="decrypt()">
+        DECRYPT NODE
+    </button>
+
+    <div id="result" class="result"></div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+    BLACK NODE // REALITY RECOVERY SYSTEM
+
+    <br>
+
+    <strong>R404-BN-09</strong>
+
+    <br>
+
+    This is a fictional interactive web experience.
+
+</footer>
+
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+
+<div class="modal-box">
+
+    <div class="close" onclick="closeModal()">×</div>
+
+    <h2 id="modalTitle"></h2>
+
+    <p id="modalText"></p>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   LOADER
+========================= */
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+
+        const loader=document.getElementById("loader");
+
+        loader.style.opacity="0";
+
+        setTimeout(()=>{
+            loader.style.display="none";
+        },1000);
+
+    },2800);
+
+});
+
+
+/* =========================
+   STAR / PARTICLE SYSTEM
+========================= */
+
+const canvas=document.getElementById("space");
+const ctx=canvas.getContext("2d");
+
+let particles=[];
+
+function resize(){
+
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+
+    particles=[];
+
+    const count=window.innerWidth<600 ? 70 : 140;
+
+    for(let i=0;i<count;i++){
+
+        particles.push({
+
+            x:Math.random()*canvas.width,
+
+            y:Math.random()*canvas.height,
+
+            r:Math.random()*1.4+.2,
+
+            speed:Math.random()*.35+.05,
+
+            drift:(Math.random()-.5)*.2
+
+        });
+
+    }
+
+}
+
+resize();
+
+window.addEventListener("resize",resize);
+
+
+function animate(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    particles.forEach(p=>{
+
+        p.y+=p.speed;
+        p.x+=p.drift;
+
+        if(p.y>canvas.height)
+            p.y=-5;
+
+        if(p.x>canvas.width)
+            p.x=0;
+
+        if(p.x<0)
+            p.x=canvas.width;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            p.x,
+            p.y,
+            p.r,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fillStyle="rgba(130,220,255,.65)";
+        ctx.fill();
+
+    });
+
+    requestAnimationFrame(animate);
+
+}
+
+animate();
+
+
+/* =========================
+   SMOOTH NAVIGATION
+========================= */
+
+function scrollToId(id){
+
+    const element=document.getElementById(id);
+
+    if(element){
+
+        element.scrollIntoView({
+            behavior:"smooth"
+        });
+
+    }
+
+}
+
+
+/* =========================
+   TERMINAL
+========================= */
+
+const commands=[
+
+    ["scan --reality","Reality coordinates unstable."],
+
+    ["recover --fragments","7 fragments successfully located."],
+
+    ["listen --signal","Unknown transmission detected."],
+
+    ["locate --origin","Origin coordinates hidden."],
+
+    ["decrypt --node","Encryption layer remains active."]
+
+];
+
+let commandIndex=0;
+
+
+function runTerminal(){
+
+    const command=
+        document.getElementById("command");
+
+    const result=
+        document.getElementById("terminalResult");
+
+    const current=
+        commands[commandIndex];
+
+    command.textContent="";
+    result.textContent="";
+
+    let i=0;
+
+    const interval=setInterval(()=>{
+
+        command.textContent+=current[0][i];
+
+        i++;
+
+        if(i>=current[0].length){
+
+            clearInterval(interval);
+
+            setTimeout(()=>{
+
+                result.textContent=
+                    "> "+current[1];
+
+                commandIndex++;
+
+                if(commandIndex>=commands.length)
+                    commandIndex=0;
+
+                setTimeout(runTerminal,1800);
+
+            },500);
+
+        }
+
+    },50);
+
+}
+
+setTimeout(runTerminal,3300);
+
+
+/* =========================
+   FILE SYSTEM
+========================= */
+
+function openFile(type){
+
+    const modal=
+        document.getElementById("modal");
+
+    const title=
+        document.getElementById("modalTitle");
+
+    const text=
+        document.getElementById("modalText");
+
+
+    if(type==="memory"){
+
+        title.textContent="MEMORY CORE";
+
+        text.textContent=
+        "Recovered memory fragment detected. The final recorded event occurred at 03:17:09. The system log ends immediately after a message reading: 'THE CLOCK IS LYING.'";
+
+    }
+
+
+    if(type==="signal"){
+
+        title.textContent="UNKNOWN SIGNAL";
+
+        text.textContent=
+        "Signal 07 repeats at irregular intervals. It does not appear to originate from any known network. A hidden pattern may exist inside the transmission.";
+
+    }
+
+
+    if(type==="origin"){
+
+        title.textContent="ORIGIN FILE";
+
+        text.textContent=
+        "ACCESS RESTRICTED. The Origin File contains the source of the anomaly. Recover the hidden key to decrypt this fragment.";
+
+    }
+
+
+    modal.classList.add("active");
+
+}
+
+
+function closeModal(){
+
+    document
+        .getElementById("modal")
+        .classList.remove("active");
+
+}
+
+
+/* =========================
+   SECRET KEY
+========================= */
+
+function decrypt(){
+
+    const input=
+        document.getElementById("key")
+        .value
+        .trim()
+        .toUpperCase();
+
+    const result=
+        document.getElementById("result");
+
+
+    /*
+       SECRET KEY:
+       BLACKNODE
+    */
+
+    if(input==="BLACKNODE"){
+
+        result.style.color="var(--green)";
+
+        result.textContent=
+        "✓ ACCESS GRANTED — ORIGIN FILE DECRYPTED.";
+
+        localStorage.setItem(
+            "blackNodeUnlocked",
+            "true"
+        );
+
+
+        setTimeout(()=>{
+
+            document
+                .getElementById("modalTitle")
+                .textContent="ORIGIN FILE // DECRYPTED";
+
+            document
+                .getElementById("modalText")
+                .textContent=
+                "The Black Node was never created to restore reality. It was created to observe it. Recovery complete... but the external signal is now responding.";
+
+            document
+                .getElementById("modal")
+                .classList.add("active");
+
+        },700);
+
+    }else{
+
+        result.style.color="var(--red)";
+
+        result.textContent=
+        "✕ ACCESS DENIED — INVALID RECOVERY SEQUENCE.";
+
+    }
+
+}
+
+
+/* =========================
+   SECRET LOGO EASTER EGG
+========================= */
+
+let logoClicks=0;
+
+function secretLogo(){
+
+    logoClicks++;
+
+    if(logoClicks===5){
+
+        document.body.style.transform=
+            "translateX(3px)";
+
+        setTimeout(()=>{
+            document.body.style.transform="";
+        },120);
+
+        alert(
+            "BLACK NODE // SECRET EVENT\n\n"+
+            "You found a hidden entrance."
+        );
+
+        logoClicks=0;
+
+    }
+
+}
+
+
+/* =========================
+   ESC CLOSE
+========================= */
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key==="Escape")
+        closeModal();
+
+});
+
+
+/* =========================
+   CLICK OUTSIDE MODAL
+========================= */
+
+document
+.getElementById("modal")
+.addEventListener("click",(e)=>{
+
+    if(e.target.id==="modal")
+        closeModal();
+
+});
+
+
+/* =========================
+   LIVE PERCENTAGE
+========================= */
+
+let recovery=73;
+
+setInterval(()=>{
+
+    recovery+=Math.random()>.5 ? 1 : -1;
+
+    if(recovery<70)
+        recovery=70;
+
+    if(recovery>84)
+        recovery=84;
+
+    document
+        .getElementById("percent")
+        .textContent=recovery+"%";
+
+},2500);
+
+</script>
+
+</body>
+</html>
